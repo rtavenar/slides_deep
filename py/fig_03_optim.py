@@ -114,7 +114,7 @@ ax.plot(ep, val, color=style.PURPLE, label="validation")
 ax.plot(ep, train, color=style.ORANGE, ls="--", label="training")
 ax.axvline(best, color=style.GREY_DARK, ls=":", lw=1.5)
 ax.scatter([best], [val.min()], color=style.INK, zorder=5)
-ax.annotate("best model", (best, val.min()), xytext=(best + 6, val.min() + 0.18),
+ax.annotate("best model", (best, val.min()), xytext=(best - 13, val.min() + 0.55),
             arrowprops=dict(arrowstyle="->", color=style.INK), fontsize=11)
 ax.set_xlabel("epoch"); ax.set_ylabel("error (RMSE)")
 ax.legend()

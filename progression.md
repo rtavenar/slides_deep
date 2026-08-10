@@ -5,7 +5,7 @@
 - [x] Intro (CM) + GD avec torch (TP)
 - [x] Optim (SGD, Adam, etc.) (CM) + SGD avec torch (TP)
 - [x] MLP (CM) + MLP avec torch (TP)
-4. Losses & init (CM) + Losses & init avec torch (TP)
+- [x] Losses & init (CM) + Losses & init avec torch (TP)
 5. Régularisation (CM) + Régularisation avec torch (TP)
 6. Projet MLP (TP)
 6b. Eval intermédiaire (sur papier, 1h)
