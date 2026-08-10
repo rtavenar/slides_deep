@@ -1,0 +1,188 @@
+\documentclass[border=8pt]{standalone}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{positioning}
+
+\definecolor{mlpinput}{RGB}{131,109,169}   % primary purple   (input layer)
+\definecolor{mlphidA}{RGB}{167,149,196}    % light purple     (hidden 1)
+\definecolor{mlphidB}{RGB}{61,146,140}     % teal accent      (hidden 2)
+\definecolor{mlpout}{RGB}{51,159,52}       % green            (output)
+\definecolor{mlpedge}{RGB}{170,170,170}    % light grey edges
+\definecolor{mlpstroke}{RGB}{90,90,90}
+
+\begin{document}
+\begin{tikzpicture}[
+    x=1.6cm, y=1.0cm,
+    node distance=1cm,
+    neuron/.style={draw=mlpstroke, circle, minimum size=14pt, inner sep=0pt, line width=0.5pt},
+    every node/.style={font=\small},
+]
+  \node[neuron, fill=mlpinput] (n0_0) at (0,1.5) {};
+  \node[neuron, fill=mlpinput] (n0_1) at (0,0.5) {};
+  \node[neuron, fill=mlpinput] (n0_2) at (0,-0.5) {};
+  \node[neuron, fill=mlpinput] (n0_3) at (0,-1.5) {};
+  \node[neuron, fill=mlphidA] (n1_0) at (1,2.5) {};
+  \node[neuron, fill=mlphidA] (n1_1) at (1,1.5) {};
+  \node[neuron, fill=mlphidA] (n1_2) at (1,0.5) {};
+  \node[neuron, fill=mlphidA] (n1_3) at (1,-0.5) {};
+  \node[neuron, fill=mlphidA] (n1_4) at (1,-1.5) {};
+  \node[neuron, fill=mlphidA] (n1_5) at (1,-2.5) {};
+  \node[neuron, fill=mlphidB] (n2_0) at (2,2.5) {};
+  \node[neuron, fill=mlphidB] (n2_1) at (2,1.5) {};
+  \node[neuron, fill=mlphidB] (n2_2) at (2,0.5) {};
+  \node[neuron, fill=mlphidB] (n2_3) at (2,-0.5) {};
+  \node[neuron, fill=mlphidB] (n2_4) at (2,-1.5) {};
+  \node[neuron, fill=mlphidB] (n2_5) at (2,-2.5) {};
+  \node[neuron, fill=mlphidA] (n3_0) at (3,2.5) {};
+  \node[neuron, fill=mlphidA] (n3_1) at (3,1.5) {};
+  \node[neuron, fill=mlphidA] (n3_2) at (3,0.5) {};
+  \node[neuron, fill=mlphidA] (n3_3) at (3,-0.5) {};
+  \node[neuron, fill=mlphidA] (n3_4) at (3,-1.5) {};
+  \node[neuron, fill=mlphidA] (n3_5) at (3,-2.5) {};
+  \node[neuron, fill=mlphidB] (n4_0) at (4,2.5) {};
+  \node[neuron, fill=mlphidB] (n4_1) at (4,1.5) {};
+  \node[neuron, fill=mlphidB] (n4_2) at (4,0.5) {};
+  \node[neuron, fill=mlphidB] (n4_3) at (4,-0.5) {};
+  \node[neuron, fill=mlphidB] (n4_4) at (4,-1.5) {};
+  \node[neuron, fill=mlphidB] (n4_5) at (4,-2.5) {};
+  \node[neuron, fill=mlpout] (n5_0) at (5,0.0) {};
+  \draw[->, mlpedge, line width=0.4pt] (n0_0) -- (n1_0);
+  \draw[->, mlpedge, line width=0.4pt] (n0_0) -- (n1_1);
+  \draw[->, mlpedge, line width=0.4pt] (n0_0) -- (n1_2);
+  \draw[->, mlpedge, line width=0.4pt] (n0_0) -- (n1_3);
+  \draw[->, mlpedge, line width=0.4pt] (n0_0) -- (n1_4);
+  \draw[->, mlpedge, line width=0.4pt] (n0_0) -- (n1_5);
+  \draw[->, mlpedge, line width=0.4pt] (n0_1) -- (n1_0);
+  \draw[->, mlpedge, line width=0.4pt] (n0_1) -- (n1_1);
+  \draw[->, mlpedge, line width=0.4pt] (n0_1) -- (n1_2);
+  \draw[->, mlpedge, line width=0.4pt] (n0_1) -- (n1_3);
+  \draw[->, mlpedge, line width=0.4pt] (n0_1) -- (n1_4);
+  \draw[->, mlpedge, line width=0.4pt] (n0_1) -- (n1_5);
+  \draw[->, mlpedge, line width=0.4pt] (n0_2) -- (n1_0);
+  \draw[->, mlpedge, line width=0.4pt] (n0_2) -- (n1_1);
+  \draw[->, mlpedge, line width=0.4pt] (n0_2) -- (n1_2);
+  \draw[->, mlpedge, line width=0.4pt] (n0_2) -- (n1_3);
+  \draw[->, mlpedge, line width=0.4pt] (n0_2) -- (n1_4);
+  \draw[->, mlpedge, line width=0.4pt] (n0_2) -- (n1_5);
+  \draw[->, mlpedge, line width=0.4pt] (n0_3) -- (n1_0);
+  \draw[->, mlpedge, line width=0.4pt] (n0_3) -- (n1_1);
+  \draw[->, mlpedge, line width=0.4pt] (n0_3) -- (n1_2);
+  \draw[->, mlpedge, line width=0.4pt] (n0_3) -- (n1_3);
+  \draw[->, mlpedge, line width=0.4pt] (n0_3) -- (n1_4);
+  \draw[->, mlpedge, line width=0.4pt] (n0_3) -- (n1_5);
+  \draw[->, mlpedge, line width=0.4pt] (n1_0) -- (n2_0);
+  \draw[->, mlpedge, line width=0.4pt] (n1_0) -- (n2_1);
+  \draw[->, mlpedge, line width=0.4pt] (n1_0) -- (n2_2);
+  \draw[->, mlpedge, line width=0.4pt] (n1_0) -- (n2_3);
+  \draw[->, mlpedge, line width=0.4pt] (n1_0) -- (n2_4);
+  \draw[->, mlpedge, line width=0.4pt] (n1_0) -- (n2_5);
+  \draw[->, mlpedge, line width=0.4pt] (n1_1) -- (n2_0);
+  \draw[->, mlpedge, line width=0.4pt] (n1_1) -- (n2_1);
+  \draw[->, mlpedge, line width=0.4pt] (n1_1) -- (n2_2);
+  \draw[->, mlpedge, line width=0.4pt] (n1_1) -- (n2_3);
+  \draw[->, mlpedge, line width=0.4pt] (n1_1) -- (n2_4);
+  \draw[->, mlpedge, line width=0.4pt] (n1_1) -- (n2_5);
+  \draw[->, mlpedge, line width=0.4pt] (n1_2) -- (n2_0);
+  \draw[->, mlpedge, line width=0.4pt] (n1_2) -- (n2_1);
+  \draw[->, mlpedge, line width=0.4pt] (n1_2) -- (n2_2);
+  \draw[->, mlpedge, line width=0.4pt] (n1_2) -- (n2_3);
+  \draw[->, mlpedge, line width=0.4pt] (n1_2) -- (n2_4);
+  \draw[->, mlpedge, line width=0.4pt] (n1_2) -- (n2_5);
+  \draw[->, mlpedge, line width=0.4pt] (n1_3) -- (n2_0);
+  \draw[->, mlpedge, line width=0.4pt] (n1_3) -- (n2_1);
+  \draw[->, mlpedge, line width=0.4pt] (n1_3) -- (n2_2);
+  \draw[->, mlpedge, line width=0.4pt] (n1_3) -- (n2_3);
+  \draw[->, mlpedge, line width=0.4pt] (n1_3) -- (n2_4);
+  \draw[->, mlpedge, line width=0.4pt] (n1_3) -- (n2_5);
+  \draw[->, mlpedge, line width=0.4pt] (n1_4) -- (n2_0);
+  \draw[->, mlpedge, line width=0.4pt] (n1_4) -- (n2_1);
+  \draw[->, mlpedge, line width=0.4pt] (n1_4) -- (n2_2);
+  \draw[->, mlpedge, line width=0.4pt] (n1_4) -- (n2_3);
+  \draw[->, mlpedge, line width=0.4pt] (n1_4) -- (n2_4);
+  \draw[->, mlpedge, line width=0.4pt] (n1_4) -- (n2_5);
+  \draw[->, mlpedge, line width=0.4pt] (n1_5) -- (n2_0);
+  \draw[->, mlpedge, line width=0.4pt] (n1_5) -- (n2_1);
+  \draw[->, mlpedge, line width=0.4pt] (n1_5) -- (n2_2);
+  \draw[->, mlpedge, line width=0.4pt] (n1_5) -- (n2_3);
+  \draw[->, mlpedge, line width=0.4pt] (n1_5) -- (n2_4);
+  \draw[->, mlpedge, line width=0.4pt] (n1_5) -- (n2_5);
+  \draw[->, mlpedge, line width=0.4pt] (n2_0) -- (n3_0);
+  \draw[->, mlpedge, line width=0.4pt] (n2_0) -- (n3_1);
+  \draw[->, mlpedge, line width=0.4pt] (n2_0) -- (n3_2);
+  \draw[->, mlpedge, line width=0.4pt] (n2_0) -- (n3_3);
+  \draw[->, mlpedge, line width=0.4pt] (n2_0) -- (n3_4);
+  \draw[->, mlpedge, line width=0.4pt] (n2_0) -- (n3_5);
+  \draw[->, mlpedge, line width=0.4pt] (n2_1) -- (n3_0);
+  \draw[->, mlpedge, line width=0.4pt] (n2_1) -- (n3_1);
+  \draw[->, mlpedge, line width=0.4pt] (n2_1) -- (n3_2);
+  \draw[->, mlpedge, line width=0.4pt] (n2_1) -- (n3_3);
+  \draw[->, mlpedge, line width=0.4pt] (n2_1) -- (n3_4);
+  \draw[->, mlpedge, line width=0.4pt] (n2_1) -- (n3_5);
+  \draw[->, mlpedge, line width=0.4pt] (n2_2) -- (n3_0);
+  \draw[->, mlpedge, line width=0.4pt] (n2_2) -- (n3_1);
+  \draw[->, mlpedge, line width=0.4pt] (n2_2) -- (n3_2);
+  \draw[->, mlpedge, line width=0.4pt] (n2_2) -- (n3_3);
+  \draw[->, mlpedge, line width=0.4pt] (n2_2) -- (n3_4);
+  \draw[->, mlpedge, line width=0.4pt] (n2_2) -- (n3_5);
+  \draw[->, mlpedge, line width=0.4pt] (n2_3) -- (n3_0);
+  \draw[->, mlpedge, line width=0.4pt] (n2_3) -- (n3_1);
+  \draw[->, mlpedge, line width=0.4pt] (n2_3) -- (n3_2);
+  \draw[->, mlpedge, line width=0.4pt] (n2_3) -- (n3_3);
+  \draw[->, mlpedge, line width=0.4pt] (n2_3) -- (n3_4);
+  \draw[->, mlpedge, line width=0.4pt] (n2_3) -- (n3_5);
+  \draw[->, mlpedge, line width=0.4pt] (n2_4) -- (n3_0);
+  \draw[->, mlpedge, line width=0.4pt] (n2_4) -- (n3_1);
+  \draw[->, mlpedge, line width=0.4pt] (n2_4) -- (n3_2);
+  \draw[->, mlpedge, line width=0.4pt] (n2_4) -- (n3_3);
+  \draw[->, mlpedge, line width=0.4pt] (n2_4) -- (n3_4);
+  \draw[->, mlpedge, line width=0.4pt] (n2_4) -- (n3_5);
+  \draw[->, mlpedge, line width=0.4pt] (n2_5) -- (n3_0);
+  \draw[->, mlpedge, line width=0.4pt] (n2_5) -- (n3_1);
+  \draw[->, mlpedge, line width=0.4pt] (n2_5) -- (n3_2);
+  \draw[->, mlpedge, line width=0.4pt] (n2_5) -- (n3_3);
+  \draw[->, mlpedge, line width=0.4pt] (n2_5) -- (n3_4);
+  \draw[->, mlpedge, line width=0.4pt] (n2_5) -- (n3_5);
+  \draw[->, mlpedge, line width=0.4pt] (n3_0) -- (n4_0);
+  \draw[->, mlpedge, line width=0.4pt] (n3_0) -- (n4_1);
+  \draw[->, mlpedge, line width=0.4pt] (n3_0) -- (n4_2);
+  \draw[->, mlpedge, line width=0.4pt] (n3_0) -- (n4_3);
+  \draw[->, mlpedge, line width=0.4pt] (n3_0) -- (n4_4);
+  \draw[->, mlpedge, line width=0.4pt] (n3_0) -- (n4_5);
+  \draw[->, mlpedge, line width=0.4pt] (n3_1) -- (n4_0);
+  \draw[->, mlpedge, line width=0.4pt] (n3_1) -- (n4_1);
+  \draw[->, mlpedge, line width=0.4pt] (n3_1) -- (n4_2);
+  \draw[->, mlpedge, line width=0.4pt] (n3_1) -- (n4_3);
+  \draw[->, mlpedge, line width=0.4pt] (n3_1) -- (n4_4);
+  \draw[->, mlpedge, line width=0.4pt] (n3_1) -- (n4_5);
+  \draw[->, mlpedge, line width=0.4pt] (n3_2) -- (n4_0);
+  \draw[->, mlpedge, line width=0.4pt] (n3_2) -- (n4_1);
+  \draw[->, mlpedge, line width=0.4pt] (n3_2) -- (n4_2);
+  \draw[->, mlpedge, line width=0.4pt] (n3_2) -- (n4_3);
+  \draw[->, mlpedge, line width=0.4pt] (n3_2) -- (n4_4);
+  \draw[->, mlpedge, line width=0.4pt] (n3_2) -- (n4_5);
+  \draw[->, mlpedge, line width=0.4pt] (n3_3) -- (n4_0);
+  \draw[->, mlpedge, line width=0.4pt] (n3_3) -- (n4_1);
+  \draw[->, mlpedge, line width=0.4pt] (n3_3) -- (n4_2);
+  \draw[->, mlpedge, line width=0.4pt] (n3_3) -- (n4_3);
+  \draw[->, mlpedge, line width=0.4pt] (n3_3) -- (n4_4);
+  \draw[->, mlpedge, line width=0.4pt] (n3_3) -- (n4_5);
+  \draw[->, mlpedge, line width=0.4pt] (n3_4) -- (n4_0);
+  \draw[->, mlpedge, line width=0.4pt] (n3_4) -- (n4_1);
+  \draw[->, mlpedge, line width=0.4pt] (n3_4) -- (n4_2);
+  \draw[->, mlpedge, line width=0.4pt] (n3_4) -- (n4_3);
+  \draw[->, mlpedge, line width=0.4pt] (n3_4) -- (n4_4);
+  \draw[->, mlpedge, line width=0.4pt] (n3_4) -- (n4_5);
+  \draw[->, mlpedge, line width=0.4pt] (n3_5) -- (n4_0);
+  \draw[->, mlpedge, line width=0.4pt] (n3_5) -- (n4_1);
+  \draw[->, mlpedge, line width=0.4pt] (n3_5) -- (n4_2);
+  \draw[->, mlpedge, line width=0.4pt] (n3_5) -- (n4_3);
+  \draw[->, mlpedge, line width=0.4pt] (n3_5) -- (n4_4);
+  \draw[->, mlpedge, line width=0.4pt] (n3_5) -- (n4_5);
+  \draw[->, mlpedge, line width=0.4pt] (n4_0) -- (n5_0);
+  \draw[->, mlpedge, line width=0.4pt] (n4_1) -- (n5_0);
+  \draw[->, mlpedge, line width=0.4pt] (n4_2) -- (n5_0);
+  \draw[->, mlpedge, line width=0.4pt] (n4_3) -- (n5_0);
+  \draw[->, mlpedge, line width=0.4pt] (n4_4) -- (n5_0);
+  \draw[->, mlpedge, line width=0.4pt] (n4_5) -- (n5_0);
+\end{tikzpicture}
+\end{document}

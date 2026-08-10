@@ -1,0 +1,17 @@
+# Keep output PDFs in the repo for publication — do not ignore *.pdf
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS cruft
+.DS_Store
+
+# Editor/IDE
+.vscode/
+*.swp
+
+# Typst
+.typst-cache/
