@@ -4,7 +4,7 @@
 
 - [x] Intro (CM) + GD avec torch (TP)
 - [x] Optim (SGD, Adam, etc.) (CM) + SGD avec torch (TP)
-- [x] MLP (CM) + MLP avec torch (TP) + penser à faire un point avant le TP sur les nn.Module, loss, DataLoader, etc.
+- [x] MLP (CM) + MLP avec torch (TP)
 4. Losses & init (CM) + Losses & init avec torch (TP)
 5. Régularisation (CM) + Régularisation avec torch (TP)
 6. Projet MLP (TP)
@@ -16,3 +16,7 @@
 11. Transfer learning (TP)
 11b. Eval finale (sur machine, 1h)
 12. (bonus) Soutenances de lecture d'articles
+
+
+
+TODO : traduire en français les diapos en faisant des versions _fr de chaque slide_deck et des figures avec légendes en français.
