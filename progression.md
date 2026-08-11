@@ -9,7 +9,7 @@
 - [x] Régularisation (CM) + Régularisation avec torch (TP)
 - [x] Projet MLP (TP)
 6b. Eval intermédiaire (sur papier, 1h)
-7. ConvNets (CM) + ConvNets avec torch (TP)
+- [x] ConvNets (CM) + ConvNets avec torch (TP)
 8. ResNets et autres variantes (CM) + ResNets avec torch (TP)
 9. Projet ConvNets (TP)
 10. Modèles génératifs (CM) + Modèles génératifs avec torch (TP)

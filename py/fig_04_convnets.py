@@ -6,6 +6,8 @@
 - conv_multichannel.svg : multi-channel conv — per-kernel sum over input
   channels, then feature maps stacked into the output tensor
 - mnist_grid.svg : one real MNIST sample per digit class, black on white
+- batchnorm_cube.svg : (N, C, H×W) tensor cube, one channel slice highlighted
+  to show batch norm's normalization axes
 
 Convolution-arithmetic figures (no-pad, padding, strides) live in
 fig_04_conv_arithmetic.py.
@@ -13,6 +15,7 @@ fig_04_conv_arithmetic.py.
 import os
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
 from mpl_toolkits.mplot3d import Axes3D  # noqa: F401 (enables projection="3d")
 from scipy import ndimage
 import style
@@ -296,3 +299,33 @@ for digit, ax in enumerate(axes.flat):
         s.set_linewidth(1.2)
 fig.subplots_adjust(wspace=0.08, hspace=0.08)
 style.save(fig, "mnist_grid.svg")
+
+# --- batch norm: (N, C, H*W) tensor cube, one channel slice highlighted -------
+# Homemade version of the classic "normalization axes" cube figure (as in
+# Wu & He, "Group Normalization", 2018): batch norm normalizes each channel
+# across the batch and spatial dimensions, i.e. one C-slice spans all of N, H*W.
+N_b, C_b, HW_b = 5, 4, 6  # batch, channels, flattened spatial (H x W)
+
+filled = np.ones((C_b, N_b, HW_b), dtype=bool)
+facecolors = np.empty(filled.shape + (4,), dtype=float)
+facecolors[...] = (0.93, 0.93, 0.93, 1.0)
+r, g, b = mcolors.to_rgb(style.PURPLE)
+facecolors[C_b - 1, :, :] = (r, g, b, 1.0)  # one channel, all N and H, W
+
+fig = plt.figure(figsize=(5.6, 5.6))
+ax = fig.add_axes([-0.05, -0.05, 1.1, 1.05], projection="3d")
+ax.voxels(filled, facecolors=facecolors, edgecolors=style.GREY_DARK, linewidth=0.6,
+          shade=False)
+
+ax.set_box_aspect((C_b, N_b, HW_b))
+ax.view_init(elev=18, azim=-60)
+ax.set_axis_off()
+
+ax.text2D(0.06, 0.5, "H, W", transform=ax.transAxes, fontsize=15, color=style.INK,
+          ha="center", va="center", rotation=90)
+ax.text2D(0.30, 0.04, "C", transform=ax.transAxes, fontsize=15, color=style.INK,
+          ha="center", va="center")
+ax.text2D(0.78, 0.04, "N", transform=ax.transAxes, fontsize=15, color=style.INK,
+          ha="center", va="center")
+
+style.save(fig, "batchnorm_cube.svg")

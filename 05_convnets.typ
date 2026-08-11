@@ -179,13 +179,61 @@
 
 #image-with-caption(image("fig/LeNet5.svg", width: 100%), [_LeNet-5 architecture (LeCun et al., 1989)_. Source: Wikipedia])
 
-== A drastic improvement on performance (ImageNet)
+== 2012--2015: A drastic improvement on performance
 
-- ImageNet
-  - 15M images
-  - 22k classes
+- ImageNet: 15M images, 22k classes
 - LSVRC: Subset of ImageNet (1.2M images, 1k classes)
-#image-with-caption(image("fig/lsvrc.svg", width: 75%), [])
+- Key ingredients:
+  - deeper networks (beware of vanishing gradients)
+  - regularization (Dropout, BatchNorm, Data Augmentation)
+#image-with-caption(image("fig/lsvrc.svg", width: 60%), [])
+
+== _ResNet_ (2015) — going really deep
+
+#grid(
+  columns: (1fr, 1fr),
+  gutter: 1em,
+  [
+    - *Problem:* past ~20 layers, deeper = *worse* (vanishing gradients)
+    - *Skip connection:*
+      $ bold(y) = bold(x) + cal(F)(bold(x)) $
+    - nothing useful to add? output $bold(x)$ → depth never hurts
+    - enabled *100+ layers*
+  ],
+  [
+    #image-with-caption(align(center)[#scale(x: 150%, y: 150%, reflow: true)[#include "cetz/resnet_block.typ"]], [_Residual block: the identity skip connection lets gradients bypass the weight layers_])
+  ]
+)
+
+#pagebreak()
+
+*Why the skip connection fixes vanishing gradients*
+
+- The gradient flowing back through one residual block is:
+
+$
+  (partial bold(y))/(partial bold(x)) = underbrace(1, "identity shortcut") + (partial cal(F)(bold(x)))/(partial bold(x))
+$
+
+- the *"1" is key*: even if $partial cal(F) slash partial bold(x)$ tiny, gradient $approx 1$ (not $approx 0$)
+- stacking $L$ blocks → product of $(1 + dots)$ terms → *no collapse to zero*
+
+== Batch Normalization for images
+
+#grid(
+  columns: (1fr, 1fr),
+  gutter: 1em,
+  [
+    - Recall: BatchNorm normalizes activations (zero mean, unit variance), then rescales with learnable $gamma, beta$
+    - For a batch of images (tensor $N times C times H times W$)
+      - one mean/variance pair *per channel* $C$
+      // - computed jointly over the batch ($N$) and spatial ($H, W$) dimensions
+    - Effect: stabilizes/speeds up training; also acts as a (mild) regularizer
+  ],
+  [
+    #image-with-caption(image("fig/batchnorm_cube.svg", width: 100%), [_Batch Norm: for each channel (purple slice), statistics are computed over the batch and spatial dimensions ($N, H, W$)_])
+  ]
+)
 
 == Regularization: Data Augmentation
 
@@ -207,3 +255,10 @@
     #image-with-caption(image("fig/aug_grid.svg", width: 100%), [_6 augmented versions (same label)_], caption-align: center)
   ]
 )
+
+== Conclusion
+
+- Convolutional layers are the building blocks of CNNs
+- Pooling layers reduce spatial size and add robustness to small shifts
+- BatchNorm stabilizes training and acts as a mild regularizer
+- Data augmentation is a very effective regularization technique for images
