@@ -20,7 +20,9 @@ SVGS := $(FIGDIR)/conv_no_pad.svg \
         $(FIGDIR)/conv_same.svg \
         $(FIGDIR)/conv_valid.svg \
         $(FIGDIR)/conv_stride1.svg \
-        $(FIGDIR)/conv_stride2.svg
+        $(FIGDIR)/conv_stride2.svg \
+        $(FIGDIR)/conv_no_padding_no_strides.svg \
+        $(FIGDIR)/pool_max.svg
 
 all: $(SVGS)
 
@@ -29,6 +31,13 @@ all: $(SVGS)
 $(FIGDIR)/conv_no_pad.svg:
 	$(PF) numerical no_pad 4 -i 5 -o 3 -p 0 -k 3 -s 1 -m convolution
 	pdftocairo -svg pdf/no_pad_04.pdf $@
+
+# "no padding, no strides" arithmetic figure (unnumbered, shaded cells only):
+# 5x5 input, k=3, s=1 -> 3x3 output, first frame (step 0).
+# Adapted from vdumoulin/conv_arithmetic pdf/no_padding_no_strides_00.pdf
+$(FIGDIR)/conv_no_padding_no_strides.svg:
+	$(PF) arithmetic no_padding_no_strides 0 -i 5 -o 3 -p 0 -k 3 -s 1
+	pdftocairo -svg pdf/no_padding_no_strides_00.pdf $@
 
 # "valid" padding (same geometry as no_pad, labelled differently): 5x5 -> 3x3
 $(FIGDIR)/conv_valid.svg:
@@ -49,6 +58,12 @@ $(FIGDIR)/conv_stride1.svg:
 $(FIGDIR)/conv_stride2.svg:
 	$(PF) numerical stride2 1 -i 5 -o 2 -p 0 -k 3 -s 2 -m convolution
 	pdftocairo -svg pdf/stride2_01.pdf $@
+
+# Max pooling: 6x6 input, 2x2 pool size, stride 2 (non-overlapping) -> 3x3
+# output. Centre frame (step 4) to show one representative pooling window.
+$(FIGDIR)/pool_max.svg:
+	$(PF) numerical pool_max 4 -i 6 -o 3 -p 0 -k 2 -s 2 -m max
+	pdftocairo -svg pdf/pool_max_04.pdf $@
 
 clean:
 	rm -f pdf/*.pdf pdf/*.aux pdf/*.log
