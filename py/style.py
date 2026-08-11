@@ -21,6 +21,22 @@ CYCLE = [PURPLE, ORANGE, TEAL, GREY_DARK, PURPLE_LIGHT]
 
 FIG_DIR = os.path.join(os.path.dirname(__file__), "..", "fig")
 
+# ---- language switch ---------------------------------------------------------
+# Set FIG_LANG=fr in the environment to render figure text in French and save
+# outputs under a "_fr" suffix, so the English figures are never overwritten.
+LANG = os.environ.get("FIG_LANG", "en")
+
+
+def t(en, fr):
+    """Pick the label matching the current FIG_LANG."""
+    return fr if LANG == "fr" else en
+
+
+def term_kw():
+    """kwargs to italicize an untranslated English loanword (e.g. "epoch",
+    "mini-batch") when rendering the French figures; a no-op in English."""
+    return {"fontstyle": "italic"} if LANG == "fr" else {}
+
 
 def apply():
     mpl.rcParams.update({
@@ -47,9 +63,11 @@ def apply():
 
 def save(fig, name, **kw):
     """Save as vector SVG. `name` may be given with any extension; it is
-    replaced with .svg."""
+    replaced with .svg. Under FIG_LANG=fr, a "_fr" suffix is inserted so the
+    English figures are never overwritten."""
     os.makedirs(FIG_DIR, exist_ok=True)
-    name = os.path.splitext(name)[0] + ".svg"
+    suffix = "_fr" if LANG == "fr" else ""
+    name = os.path.splitext(name)[0] + suffix + ".svg"
     path = os.path.join(FIG_DIR, name)
     fig.savefig(path, bbox_inches="tight", **kw)
     plt.close(fig)

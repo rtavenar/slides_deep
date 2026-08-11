@@ -30,12 +30,13 @@ colors = [style.ORANGE if not d else style.PURPLE for d in deep]
 fig, ax = plt.subplots(figsize=(7, 4))
 bars = ax.bar(years, err, color=colors)
 ax.axhline(5.1, color=style.GREY_DARK, ls=":", lw=1.5)
-ax.text(5.4, 5.6, "human ~5%", ha="right", color=style.GREY_DARK, fontsize=10)
+ax.text(5.4, 5.6, style.t("human ~5%", "humain ~5%"), ha="right", color=style.GREY_DARK, fontsize=10)
 for b, e in zip(bars, err):
     ax.text(b.get_x() + b.get_width() / 2, e + 0.4, f"{e:.1f}", ha="center",
             fontsize=10)
-ax.set_ylabel("top-5 error (%)")
-ax.set_title("ImageNet (LSVRC): shallow (orange) → deep (purple)")
+ax.set_ylabel(style.t("top-5 error (%)", "erreur top-5 (%)"))
+ax.set_title(style.t("ImageNet (LSVRC): shallow (orange) → deep (purple)",
+                      "ImageNet (LSVRC) : peu profond (orange) → profond (violet)"))
 style.save(fig, "lsvrc.png")
 
 # --- image = grid of pixels, pixel = 3 RGB values -----------------------------
@@ -70,8 +71,10 @@ hi_r, hi_c = 4, 5  # a plain heart pixel to highlight
 hi_val = img[hi_r, hi_c]
 
 fig = plt.figure(figsize=(9.5, 4.6))
-fig.text(0.03, 0.95, "An image = a grid of pixels", fontsize=14, ha="left", color=style.INK)
-fig.text(0.98, 0.95, "A pixel = 3 luminance values (R, G, B)", fontsize=14, ha="right", color=style.INK)
+fig.text(0.03, 0.95, style.t("An image = a grid of pixels", "Une image = une grille de pixels"),
+          fontsize=14, ha="left", color=style.INK)
+fig.text(0.98, 0.95, style.t("A pixel = 3 luminance values (R, G, B)", "Un pixel = 3 valeurs de luminance (R, V, B)"),
+          fontsize=14, ha="right", color=style.INK)
 
 # panel A: pixel grid, one pixel highlighted with its (R, G, B) triplet
 axL = fig.add_axes([0.03, 0.04, 0.42, 0.82])
@@ -84,7 +87,8 @@ for y in range(H + 1):
 rx, ry = hi_c, H - hi_r - 1
 axL.add_patch(plt.Rectangle((rx, ry), 1, 1, fill=False, edgecolor=style.INK, lw=2.4))
 axL.annotate(
-    f"one pixel =\n(R, G, B) = ({hi_val[0]}, {hi_val[1]}, {hi_val[2]})",
+    style.t(f"one pixel =\n(R, G, B) = ({hi_val[0]}, {hi_val[1]}, {hi_val[2]})",
+            f"un pixel =\n(R, V, B) = ({hi_val[0]}, {hi_val[1]}, {hi_val[2]})"),
     xy=(rx + 1, ry + 1), xycoords="data",
     xytext=(W + 0.6, H - 1.5), textcoords="data",
     fontsize=12, color=style.INK,
@@ -110,7 +114,8 @@ def plane_rgba(channel_idx):
 
 X, Y = np.meshgrid(np.arange(W + 1), np.arange(H + 1))
 offsets = [0, 1.4, 2.8]  # R front, G middle, B back
-for i, label in enumerate("RGB"):
+channel_labels = style.t("RGB", "RVB")
+for i, label in enumerate(channel_labels):
     Z = np.full_like(X, -offsets[i], dtype=float)
     axR.plot_surface(
         X, Y, Z, rstride=1, cstride=1,
@@ -122,7 +127,7 @@ for i, label in enumerate("RGB"):
 axR.set_box_aspect((W, H, 7))
 axR.view_init(elev=18, azim=-60)
 axR.set_axis_off()
-axR.text2D(0.78, 0.10, "height × width × 3 channels",
+axR.text2D(0.78, 0.10, style.t("height × width × 3 channels", "hauteur × largeur × 3 canaux"),
            transform=axR.transAxes, ha="center", fontsize=11, color=style.GREY_DARK)
 
 style.save(fig, "rgb_pixels.svg")
@@ -205,13 +210,13 @@ ax.axis("off")
 style.save(fig, "aug_original.svg")
 
 augs = [
-    (np.fliplr(base), "horizontal flip"),
-    (ndimage.rotate(base, 18, reshape=False, order=1, cval=0), "rotation"),
-    (zoom_crop(base, 1.35), "random crop / zoom"),
-    (brightness(base, 1.35), "brightness +"),
-    (brightness(base, 0.65), "brightness -"),
+    (np.fliplr(base), style.t("horizontal flip", "retournement horizontal")),
+    (ndimage.rotate(base, 18, reshape=False, order=1, cval=0), style.t("rotation", "rotation")),
+    (zoom_crop(base, 1.35), style.t("random crop / zoom", "recadrage / zoom aléatoire")),
+    (brightness(base, 1.35), style.t("brightness +", "luminosité +")),
+    (brightness(base, 0.65), style.t("brightness -", "luminosité -")),
     (ndimage.rotate(ndimage.shift(base, (-10, 25, 0), order=1, cval=0), -15,
-                     reshape=False, order=1, cval=0), "shift + rotation"),
+                     reshape=False, order=1, cval=0), style.t("shift + rotation", "translation + rotation")),
 ]
 
 fig, axes = plt.subplots(2, 3, figsize=(9.2, 6.2))
@@ -266,13 +271,13 @@ for i, xc in enumerate(x_centers):
 
 _draw_stack(ax, 0, Y_OUT, N_OUT, SIZE, DUMOULIN_CYAN, OFF, zorder=10)
 
-ax.text(-6.6, Y_IN, f"input\n({N_IN} channels)", fontsize=12, color=style.INK,
+ax.text(-6.6, Y_IN, style.t(f"input\n({N_IN} channels)", f"entrée\n({N_IN} canaux)"), fontsize=12, color=style.INK,
         ha="right", va="center")
-ax.text(-6.6, Y_K, "kernels", fontsize=11, color=style.GREY_DARK,
+ax.text(-6.6, Y_K, style.t("kernels", "noyaux"), fontsize=11, color=style.GREY_DARK,
         ha="right", va="center")
-ax.text(-6.6, Y_FM, "feature maps", fontsize=11, color=style.GREY_DARK,
+ax.text(-6.6, Y_FM, style.t("feature maps", "cartes d'activation"), fontsize=11, color=style.GREY_DARK,
         ha="right", va="center")
-ax.text(-6.6, Y_OUT, f"output\n({N_OUT} channels)", fontsize=12, color=style.INK,
+ax.text(-6.6, Y_OUT, style.t(f"output\n({N_OUT} channels)", f"sortie\n({N_OUT} canaux)"), fontsize=12, color=style.INK,
         ha="right", va="center")
 
 ax.set_xlim(-7.4, 6.5)

@@ -114,7 +114,7 @@
 
 $
   bold(w)^((t+1)) arrow.l bold(w)^((t)) - rho / sqrt(nabla_w cal(L) dot.o nabla_w cal(L)) dot.o nabla_w cal(L)
-  = bold(w)^((t)) - rho dot.o "sign"(nabla_w cal(L))
+  = bold(w)^((t)) - rho "sign"(nabla_w cal(L))
 $
 
 → *equal-sized step* in every direction \

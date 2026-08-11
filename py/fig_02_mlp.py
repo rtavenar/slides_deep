@@ -19,6 +19,7 @@ def _plot_activations(highlight=None):
         "tanh": np.tanh(x),
         "ReLU": np.maximum(0, x),
     }
+    display_name = {"sigmoid": style.t("sigmoid", "sigmoïde"), "tanh": "tanh", "ReLU": "ReLU"}
     fig, axes = plt.subplots(1, 3, figsize=(10, 3.2))
     for ax, (name, y) in zip(axes, fns.items()):
         is_hi = (highlight == name)
@@ -26,7 +27,7 @@ def _plot_activations(highlight=None):
         ax.axhline(0, color=style.GREY, lw=1)
         ax.axvline(0, color=style.GREY, lw=1)
         ax.plot(x, y, color=color, lw=3 if is_hi else 2.2)
-        ax.set_title(name, color=color, fontweight="bold" if is_hi else "normal")
+        ax.set_title(display_name[name], color=color, fontweight="bold" if is_hi else "normal")
         ax.set_ylim(-1.4, 3)
         ax.set_xticks([-5, 0, 5])
     fig.tight_layout()
@@ -39,13 +40,13 @@ style.save(_plot_activations(highlight="ReLU"), "activations_relu.png")
 # --- softmax -----------------------------------------------------------------
 logits = np.array([2.0, 1.0, 0.1, -1.2])
 probs = np.exp(logits) / np.exp(logits).sum()
-labels = [f"class {i}" for i in range(len(logits))]
+labels = [style.t(f"class {i}", f"classe {i}") for i in range(len(logits))]
 fig, (a1, a2) = plt.subplots(1, 2, figsize=(8, 3.4))
 a1.bar(labels, logits, color=style.GREY_DARK)
-a1.set_title("logits $o_i$ (any real)")
+a1.set_title(style.t("logits $o_i$ (any real)", "logits $o_i$ (tout réel)"))
 a1.axhline(0, color=style.GREY, lw=1)
 a2.bar(labels, probs, color=style.PURPLE)
-a2.set_title("softmax: >0, sums to 1")
+a2.set_title(style.t("softmax: >0, sums to 1", "softmax : >0, somme à 1"))
 a2.set_ylim(0, 1)
 for i, p in enumerate(probs):
     a2.text(i, p + 0.02, f"{p:.2f}", ha="center", fontsize=10)

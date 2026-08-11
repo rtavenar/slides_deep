@@ -139,3 +139,19 @@ write("mlp_io", diagram(
 write("mlp_deep", diagram(
     [(4, IN), (6, HA), (6, HB), (6, HA), (6, HB), (1, OUT)],
 ))
+
+# --- French-labelled variants (only the ones actually used in the FR decks) --
+write("mlp_2hidden_fr", diagram(
+    [(5, IN), (7, HA), (7, HB), (1, OUT)],
+    labels=[r"$\mathbf{w^{(0)}}$", r"$\mathbf{w^{(1)}}$", r"$\mathbf{w^{(2)}}$"],
+    titles=[r"Entrée\\$\mathbf{x}$", r"Caché 1\\$\mathbf{h^{(1)}}$",
+            r"Caché 2\\$\mathbf{h^{(2)}}$", r"Sortie\\$\mathbf{\hat{y}}$"],
+))
+
+write("mlp_2hidden_wide_fr", diagram(
+    [(5, IN), (7, HA), (7, HB), (1, OUT)],
+    labels=[r"$\mathbf{w^{(0)}}$", r"$\mathbf{w^{(1)}}$", r"$\mathbf{w^{(2)}}$"],
+    titles=[r"Entrée\\$\mathbf{x}$", r"Caché 1\\$\mathbf{h^{(1)}}$",
+            r"Caché 2\\$\mathbf{h^{(2)}}$", r"Sortie\\$\mathbf{\hat{y}}$"],
+    x_scale="3.4cm", y_scale="0.6cm",
+))

@@ -20,9 +20,10 @@ ep = np.arange(1, 41)
 with_std = 0.1 + 0.9 * np.exp(-ep / 6)
 without = 0.1 + 0.9 * np.exp(-ep / 22) + 0.04 * np.sin(ep / 2) * np.exp(-ep / 30)
 fig, ax = plt.subplots(figsize=(5.5, 3.8))
-ax.plot(ep, with_std, color=style.PURPLE, label="with standardization")
-ax.plot(ep, without, color=style.ORANGE, ls="--", label="without")
-ax.set_xlabel("epoch"); ax.set_ylabel("training loss")
+ax.plot(ep, with_std, color=style.PURPLE, label=style.t("with standardization", "avec standardisation"))
+ax.plot(ep, without, color=style.ORANGE, ls="--", label=style.t("without", "sans"))
+ax.set_xlabel("epoch", **style.term_kw())
+ax.set_ylabel(style.t("training loss", "perte d'entraînement"))
 ax.legend()
 style.save(fig, "standardization.png")
 
@@ -41,7 +42,7 @@ x = -2.5; pts = [x]
 for _ in range(6):
     x -= 0.08 * 2 * (x - 1); pts.append(x)
 ax.plot(pts, bowl(np.array(pts)), "o-", color=style.PURPLE, ms=5)
-ax.set_title("LR too small\n(slow)")
+ax.set_title(style.t("LR too small\n(slow)", "Taux d'apprentissage trop petit\n(lent)"))
 
 # too large
 ax = axes[1]; ax.plot(xs, bowl(xs), color=style.GREY_DARK)
@@ -49,7 +50,7 @@ x = -2.0; pts = [x]
 for _ in range(6):
     x -= 0.95 * 2 * (x - 1); pts.append(x)
 ax.plot(pts, bowl(np.array(pts)), "o-", color=style.ORANGE, ms=5)
-ax.set_title("LR too large\n(oscillates)")
+ax.set_title(style.t("LR too large\n(oscillates)", "Taux d'apprentissage trop grand\n(oscille)"))
 
 # local minimum
 ax = axes[2]
@@ -65,7 +66,7 @@ for _ in range(20):
 pts = np.array(pts)
 fp = 0.5 * pts**2 + 3 * np.sin(1.3 * pts)
 ax.plot(pts, fp, "o-", color=style.PURPLE, ms=4)
-ax.set_title("Local minimum\n/ plateau")
+ax.set_title(style.t("Local minimum\n/ plateau", "Minimum local\n/ plateau"))
 for ax in axes:
     ax.set_xticks([]); ax.set_yticks([])
 fig.tight_layout()
@@ -87,7 +88,7 @@ p = np.array([-2.6, 1.6]); gd = [p.copy()]
 for _ in range(18):
     g = np.array([1.2 * p[0], 4.4 * p[1]]); p = p - 0.12 * g; gd.append(p.copy())
 gd = np.array(gd)
-ax.plot(gd[:, 0], gd[:, 1], "o-", color=style.PURPLE, ms=4, label="GD (smooth)")
+ax.plot(gd[:, 0], gd[:, 1], "o-", color=style.PURPLE, ms=4, label=style.t("GD (smooth)", "GD (lisse)"))
 
 # SGD noisy
 p = np.array([-2.6, 1.6]); sgd = [p.copy()]
@@ -96,11 +97,11 @@ for _ in range(40):
     p = p - 0.06 * g; sgd.append(p.copy())
 sgd = np.array(sgd)
 ax.plot(sgd[:, 0], sgd[:, 1], "-", color=style.ORANGE, lw=1.3, alpha=0.9,
-        label="SGD (noisy)")
+        label=style.t("SGD (noisy)", "SGD (bruitée)"))
 ax.plot(0, 0, "*", color=style.INK, ms=15)
 ax.set_xticks([]); ax.set_yticks([])
 ax.legend(loc="upper right")
-ax.set_title("Parameter trajectories")
+ax.set_title(style.t("Parameter trajectories", "Trajectoires des paramètres"))
 style.save(fig, "gd_vs_sgd.png")
 
 
@@ -110,13 +111,13 @@ train = 0.05 + 0.8 * np.exp(-ep / 10)
 val = 0.12 + 0.7 * np.exp(-ep / 9) + 0.0025 * (ep - 18) ** 2 * (ep > 18)
 best = ep[np.argmin(val)]
 fig, ax = plt.subplots(figsize=(6, 4))
-ax.plot(ep, val, color=style.PURPLE, label="validation")
-ax.plot(ep, train, color=style.ORANGE, ls="--", label="training")
+ax.plot(ep, val, color=style.PURPLE, label=style.t("validation", "validation"))
+ax.plot(ep, train, color=style.ORANGE, ls="--", label=style.t("training", "entraînement"))
 ax.axvline(best, color=style.GREY_DARK, ls=":", lw=1.5)
 ax.scatter([best], [val.min()], color=style.INK, zorder=5)
-ax.annotate("best model", (best, val.min()), xytext=(best - 13, val.min() + 0.55),
+ax.annotate(style.t("best model", "meilleur modèle"), (best, val.min()), xytext=(best - 13, val.min() + 0.55),
             arrowprops=dict(arrowstyle="->", color=style.INK), fontsize=11)
-ax.set_xlabel("epoch"); ax.set_ylabel("error (RMSE)")
+ax.set_xlabel("epoch", **style.term_kw()); ax.set_ylabel(style.t("error (RMSE)", "erreur (RMSE)"))
 ax.legend()
 style.save(fig, "early_stopping.png")
 
@@ -126,9 +127,9 @@ ep = np.arange(1, 41)
 bn = 0.08 + 0.9 * np.exp(-ep / 5)
 nobn = 0.08 + 0.9 * np.exp(-ep / 16) + 0.05 * np.sin(ep / 1.5) * np.exp(-ep / 20)
 fig, ax = plt.subplots(figsize=(5.5, 3.8))
-ax.plot(ep, bn, color=style.PURPLE, label="with BatchNorm")
-ax.plot(ep, nobn, color=style.ORANGE, ls="--", label="without")
-ax.set_xlabel("epoch"); ax.set_ylabel("training loss")
+ax.plot(ep, bn, color=style.PURPLE, label=style.t("with BatchNorm", "avec BatchNorm"))
+ax.plot(ep, nobn, color=style.ORANGE, ls="--", label=style.t("without", "sans"))
+ax.set_xlabel("epoch", **style.term_kw()); ax.set_ylabel(style.t("training loss", "perte d'entraînement"))
 ax.legend()
 style.save(fig, "batchnorm.png")
 
@@ -140,12 +141,12 @@ sig = 0.25 ** (layers[::-1] - 1) * 0.8
 relu = np.full_like(layers, 0.8, dtype=float) * (0.92 ** (layers[::-1] - 1))
 fig, ax = plt.subplots(figsize=(6.2, 4))
 w = 0.4
-ax.bar(layers - w / 2, sig, width=w, color=style.ORANGE, label="sigmoid")
+ax.bar(layers - w / 2, sig, width=w, color=style.ORANGE, label=style.t("sigmoid", "sigmoïde"))
 ax.bar(layers + w / 2, relu, width=w, color=style.PURPLE, label="ReLU")
 ax.set_yscale("log")
-ax.set_xlabel("layer (1 = closest to input)")
-ax.set_ylabel("|gradient|  (log scale)")
-ax.set_title("Gradient magnitude across depth")
+ax.set_xlabel(style.t("layer (1 = closest to input)", "couche (1 = la plus proche de l'entrée)"))
+ax.set_ylabel(style.t("|gradient|  (log scale)", "|gradient|  (échelle log)"))
+ax.set_title(style.t("Gradient magnitude across depth", "Magnitude du gradient selon la profondeur"))
 ax.set_xticks(layers)
 ax.legend()
 style.save(fig, "vanishing_grad.png")

@@ -26,11 +26,11 @@ x = np.linspace(-6, 8, 500)
 c1 = 0.6 * gauss(x, -1.5, 1.0)
 c2 = 0.4 * gauss(x, 3.5, 1.3)
 fig, ax = plt.subplots(figsize=(5.6, 3.8))
-ax.plot(x, c1, color=style.PURPLE_LIGHT, ls="--", label="component 1")
-ax.plot(x, c2, color=style.TEAL, ls="--", label="component 2")
-ax.plot(x, c1 + c2, color=style.ORANGE, lw=2.6, label="mixture p(x)")
+ax.plot(x, c1, color=style.PURPLE_LIGHT, ls="--", label=style.t("component 1", "composante 1"))
+ax.plot(x, c2, color=style.TEAL, ls="--", label=style.t("component 2", "composante 2"))
+ax.plot(x, c1 + c2, color=style.ORANGE, lw=2.6, label=style.t("mixture p(x)", "mélange p(x)"))
 ax.fill_between(x, c1 + c2, color=style.ORANGE, alpha=0.08)
-ax.set_xlabel("x"); ax.set_ylabel("density"); ax.legend()
+ax.set_xlabel("x"); ax.set_ylabel(style.t("density", "densité")); ax.legend()
 style.save(fig, "gmm.png")
 
 # --- 1b. GMM density in 2D: level lines (the model) vs. samples (the data) ----
@@ -65,8 +65,9 @@ for spine in ax.spines.values():
     spine.set_visible(False)
 handles = [
     Line2D([0], [0], marker="x", color=style.INK, linestyle="none", markersize=9,
-           markeredgewidth=1.8, label="observed samples $x_i$"),
-    Line2D([0], [0], color=style.PURPLE, lw=2, label="model density $p(x)$ (level lines)"),
+           markeredgewidth=1.8, label=style.t("observed samples $x_i$", "échantillons observés $x_i$")),
+    Line2D([0], [0], color=style.PURPLE, lw=2,
+           label=style.t("model density $p(x)$ (level lines)", "densité du modèle $p(x)$ (lignes de niveau)")),
 ]
 ax.legend(handles=handles, loc="upper left", frameon=False, fontsize=10.5)
 style.save(fig, "gmm_2d.png")
@@ -77,8 +78,8 @@ fig, ax = plt.subplots(figsize=(6.2, 4))
 n = 160
 x0 = rng.normal([-3, 0], [0.6, 0.9], (n, 2))
 x1 = rng.normal([3, 0], [0.6, 0.9], (n, 2))
-ax.scatter(*x0.T, s=10, color=style.PURPLE, alpha=0.5, label="noise (t=0)")
-ax.scatter(*x1.T, s=10, color=style.ORANGE, alpha=0.5, label="data (t=1)")
+ax.scatter(*x0.T, s=10, color=style.PURPLE, alpha=0.5, label=style.t("noise (t=0)", "bruit (t=0)"))
+ax.scatter(*x1.T, s=10, color=style.ORANGE, alpha=0.5, label=style.t("data (t=1)", "données (t=1)"))
 # velocity field = constant-ish transport to the right
 gx, gy = np.meshgrid(np.linspace(-4, 4, 14), np.linspace(-2.5, 2.5, 9))
 u = np.ones_like(gx) * 1.0
@@ -88,12 +89,12 @@ ax.quiver(gx, gy, u, v, color=style.TEAL, alpha=0.6, width=0.004)
 p0 = np.array([-3, 1.2]); p1 = np.array([3, -0.5])
 t = np.linspace(0, 1, 30)[:, None]
 traj = (1 - t) * p0 + t * p1
-ax.plot(traj[:, 0], traj[:, 1], color=style.INK, lw=2.4, label="trajectory")
+ax.plot(traj[:, 0], traj[:, 1], color=style.INK, lw=2.4, label=style.t("trajectory", "trajectoire"))
 ax.scatter(*p0, color=style.PURPLE, edgecolor="k", zorder=5, s=40)
 ax.scatter(*p1, color=style.ORANGE, edgecolor="k", zorder=5, s=40)
 ax.set_xticks([]); ax.set_yticks([]); ax.legend(loc="upper center", ncol=3,
                                                  fontsize=9)
-ax.set_title("Flow matching: transport noise → data")
+ax.set_title(style.t("Flow matching: transport noise → data", "Flow matching : transport du bruit vers les données"))
 style.save(fig, "flow_field.png")
 
 # --- 3. diffusion forward noising strip --------------------------------------
@@ -109,7 +110,7 @@ for ax, b in zip(axes, steps):
     ax.imshow(img, cmap="Purples", vmin=0, vmax=1)
     ax.set_xticks([]); ax.set_yticks([])
     ax.set_title(f"t = {b:.2f}", fontsize=11)
-axes[0].set_ylabel("$x_0$ (data)", fontsize=11)
-fig.suptitle("Forward noising:  data  →  pure noise", y=1.02)
+axes[0].set_ylabel(style.t("$x_0$ (data)", "$x_0$ (données)"), fontsize=11)
+fig.suptitle(style.t("Forward noising:  data  →  pure noise", "Bruitage progressif :  données  →  bruit pur"), y=1.02)
 fig.tight_layout()
 style.save(fig, "diffusion_strip.png")
