@@ -112,6 +112,11 @@ Two classic schemes = refinements of $"Var"(w) = 1 slash n_"in"$:
   $ hat(z)^((l)) = (z^((l)) - mu_cal(B)) / sqrt(sigma_cal(B)^2 + epsilon) $
   - then learnable scale $gamma$ + shift $beta$
 
+- *Train vs eval mode:*
+  - *Train:* $mu_cal(B), sigma_cal(B)^2$ = statistics of the *current mini-batch*
+  - *Eval:* mini-batch stats unreliable (batch size 1, no batch) \
+    → *running average* $mu, sigma^2$ from training, kept *fixed* at test time
+
 = Vanishing gradients
 
 == Neural networks and back-propagation
@@ -246,7 +251,7 @@ $
   - init → scale at start
   - BatchNorm → scale during training
 - Vanishing gradients
-  - deeper networks = more multiplicative factors → product shrinks to 0
+  - deeper networks → product shrinks to 0
   - ReLU helps (factor = 1 on active side)
 - Regularization
   - Early stopping
