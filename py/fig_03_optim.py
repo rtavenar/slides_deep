@@ -36,12 +36,23 @@ def bowl(x):
 fig, axes = plt.subplots(1, 3, figsize=(11, 3.4))
 xs = np.linspace(-3, 5, 200)
 
+
+def plot_steps(ax, pts, ys):
+    """Color each descent step with the same start->end plasma gradient
+    used in gd_steps.png, so the direction of the optimization is visible."""
+    cmap = plt.cm.plasma(np.linspace(0.15, 0.85, len(pts)))
+    for i in range(len(pts) - 1):
+        ax.plot(pts[i:i + 2], ys[i:i + 2], "-", color=cmap[i], lw=2.2, zorder=2)
+    ax.scatter(pts, ys, c=cmap, s=30, zorder=3, edgecolor="none")
+
+
 # too small
 ax = axes[0]; ax.plot(xs, bowl(xs), color=style.GREY_DARK)
 x = -2.5; pts = [x]
 for _ in range(6):
     x -= 0.08 * 2 * (x - 1); pts.append(x)
-ax.plot(pts, bowl(np.array(pts)), "o-", color=style.PURPLE, ms=5)
+pts = np.array(pts)
+plot_steps(ax, pts, bowl(pts))
 ax.set_title(style.t("LR too small\n(slow)", "Taux d'apprentissage trop petit\n(lent)"))
 
 # too large
@@ -49,7 +60,8 @@ ax = axes[1]; ax.plot(xs, bowl(xs), color=style.GREY_DARK)
 x = -2.0; pts = [x]
 for _ in range(6):
     x -= 0.95 * 2 * (x - 1); pts.append(x)
-ax.plot(pts, bowl(np.array(pts)), "o-", color=style.ORANGE, ms=5)
+pts = np.array(pts)
+plot_steps(ax, pts, bowl(pts))
 ax.set_title(style.t("LR too large\n(oscillates)", "Taux d'apprentissage trop grand\n(oscille)"))
 
 # local minimum
@@ -65,7 +77,7 @@ for _ in range(20):
     x -= 0.08 * gi; pts.append(x)
 pts = np.array(pts)
 fp = 0.5 * pts**2 + 3 * np.sin(1.3 * pts)
-ax.plot(pts, fp, "o-", color=style.PURPLE, ms=4)
+plot_steps(ax, pts, fp)
 ax.set_title(style.t("Local minimum\n/ plateau", "Minimum local\n/ plateau"))
 for ax in axes:
     ax.set_xticks([]); ax.set_yticks([])

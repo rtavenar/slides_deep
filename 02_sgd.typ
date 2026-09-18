@@ -113,12 +113,11 @@
 - *How:* divide each gradient by *its own magnitude* → size cancels, only *sign* survives:
 
 $
-  bold(w)^((t+1)) arrow.l bold(w)^((t)) - rho / sqrt(nabla_w cal(L) dot.o nabla_w cal(L)) dot.o nabla_w cal(L)
-  = bold(w)^((t)) - rho "sign"(nabla_w cal(L))
+  bold(w)^((t+1)) arrow.l & bold(w)^((t)) - rho underbrace((nabla_w cal(L)) / sqrt(nabla_w cal(L) dot.o nabla_w cal(L)), "sign"(nabla_w cal(L)))
 $
 
-→ *equal-sized step* in every direction \
-  (In practice, a small $epsilon$ is added in $sqrt(dot)$ to avoid /0)
+→ *equal-sized step* in every direction
+  // (In practice, a small $epsilon$ is added in $sqrt(dot)$ to avoid /0)
 
 == SGD variants: a focus on Adam (2/2)
 

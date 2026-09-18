@@ -112,12 +112,11 @@
 - *Comment :* diviser chaque gradient par *sa propre magnitude* → la taille s'annule, seul le *signe* subsiste :
 
 $
-  bold(w)^((t+1)) arrow.l bold(w)^((t)) - rho / sqrt(nabla_w cal(L) dot.o nabla_w cal(L)) dot.o nabla_w cal(L)
-  = bold(w)^((t)) - rho "sign"(nabla_w cal(L))
+  bold(w)^((t+1)) arrow.l & bold(w)^((t)) - rho underbrace((nabla_w cal(L)) / sqrt(nabla_w cal(L) dot.o nabla_w cal(L)), "sign"(nabla_w cal(L)))
 $
 
-→ un *pas de même taille* dans toutes les directions \
-  (en pratique, un petit $epsilon$ est ajouté dans $sqrt(dot)$ pour éviter les divisions par 0)
+→ un *pas de même taille* dans toutes les directions
+  // (en pratique, un petit $epsilon$ est ajouté dans $sqrt(dot)$ pour éviter les divisions par 0)
 
 == Variantes du SGD : zoom sur Adam (2/2)
 
