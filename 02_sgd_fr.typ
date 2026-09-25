@@ -71,7 +71,7 @@
         $ w^((t+1)) arrow.l w^((t)) - rho G $
     ]
   ],
-  [
+  uncover("2-")[
     #algo-box[Algorithme 2 : SGD par _mini-batches_][
       Pour chaque _epoch_ :
       + #text(fill: sgd-color)[Découper les données en _mini-batches_ de taille $m$]
@@ -95,7 +95,7 @@
     - Inconvénients du SGD
       - Sujet à une forte variance
     - Avantages du SGD
-      - Mise à jour des poids plus rapide (à chaque exemple, ou à chaque _mini-batch_)
+      - Mise à jour des poids plus rapide (à chaque _mini-batch_)
       - Permet d'échapper aux minima locaux dans les cas non convexes
   ],
   [
@@ -112,7 +112,7 @@
 - *Comment :* diviser chaque gradient par *sa propre magnitude* → la taille s'annule, seul le *signe* subsiste :
 
 $
-  bold(w)^((t+1)) arrow.l & bold(w)^((t)) - rho underbrace((nabla_w cal(L)) / sqrt(nabla_w cal(L) dot.o nabla_w cal(L)), "sign"(nabla_w cal(L)))
+  bold(w)^((t+1)) arrow.l & bold(w)^((t)) - rho underbrace((nabla_w cal(L)) / sqrt(nabla_w cal(L) dot.o nabla_w cal(L)), "signe"(nabla_w cal(L)))
 $
 
 → un *pas de même taille* dans toutes les directions

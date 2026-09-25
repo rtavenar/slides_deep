@@ -72,7 +72,7 @@
         $ w^((t+1)) arrow.l w^((t)) - rho G $
     ]
   ],
-  [
+  uncover("2-")[
     #algo-box[Algorithm 2: Mini-Batch SGD][
       For each *epoch*:
       + #text(fill: sgd-color)[Split shuffled data into mini-batches of size $m$]
@@ -96,7 +96,7 @@
     - SGD Cons
       - Subject to high variance
     - SGD Pros
-      - Faster weight update (each sample, or each mini-batch)
+      - Faster weight update (each mini-batch)
       - Escape local minima in non-convex settings
   ],
   [
