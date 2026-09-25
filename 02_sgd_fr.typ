@@ -86,6 +86,10 @@
   ]
 )
 
+== _Mini-batches_ et _epochs_
+
+#image-with-caption(align(center)[#scale(x: 150%, y: 150%, reflow: true)[#include "cetz/minibatch_epoch_fr.typ"]], [_Epoch : un passage complet sur les données, soit $n slash m$ mises à jour_])
+
 == Descente de gradient contre descente de gradient stochastique
 
 #grid(

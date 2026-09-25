@@ -87,6 +87,10 @@
   ]
 )
 
+== Mini-batches and epochs
+
+#image-with-caption(align(center)[#scale(x: 150%, y: 150%, reflow: true)[#include "cetz/minibatch_epoch.typ"]], [_Epoch: one full pass over the data, i.e. $n slash m$ updates_])
+
 == Gradient Descent vs Stochastic Gradient Descent
 
 #grid(
